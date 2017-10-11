@@ -1,13 +1,17 @@
 # unipi-webmail-bot
 Un bot Telegram che ti avvisa quando ricevi una nuova email nella tua casella dell'Università di Pisa.
 
----
-
 ###### Questo progetto è in stadio embrionale, gran parte delle configurazioni deve ancora essere resa personalizzabile.
 
 ---
 
-### Installazione dipendenze
+- [Installazione dipendenze](#installazione-dipendenze)
+- [Creazione bot Telegram](#creazione-bot-telegram)
+- [Modifica credenziali](#modifica-credenziali)
+- [Esecuzione](#esecuzione)
+- [Utilizzo](#utilizzo)
+
+## Installazione dipendenze
 
 + Usando Yarn
   ```bash
@@ -17,12 +21,14 @@ Un bot Telegram che ti avvisa quando ricevi una nuova email nella tua casella de
   ```bash
   npm install
   ```
++ Usando Docker
+  _[Vedi più in basso](#esecuzione)_
 
-### Creazione bot Telegram
+## Creazione bot Telegram
 
 Segui la [documentazione ufficiale](https://core.telegram.org/bots#6-botfather) per creare un bot tramite _[@BotFather](https://telegram.me/botfather)_.
 
-### Modifica credenziali
+## Modifica credenziali
 
 Le credenziali vengono estratte da uno di questi due file, elencati in ordine di precedenza:
 
@@ -35,7 +41,7 @@ Se il primo viene trovato, il secondo viene ignorato. **Almeno uno dei due deve 
 
 In caso si stia utilizzando un orchestrator che supporta i secret, il meccanismo di sovrascrittura funziona anche per i file contenuti in `/run/secrets`: il contenuto del file `/run/secrets/telegram_token`, se presente, prenderà il posto del parametro specificato in uno dei file di configurazione JSON prima elencati.
 
-### Esecuzione
+## Esecuzione
 
 + Usando Yarn
   ```bash
@@ -54,7 +60,7 @@ In caso si stia utilizzando un orchestrator che supporta i secret, il meccanismo
   docker run -it --env TELEGRAM_TOKEN=my:token --env TELEGRAM_PASSWORD=foobar --env WEBMAIL_USERNAME=my.username --env WEBMAIL_PASSWORD=hunter2 nmaggioni/unipi-webmail-bot
   ```
 
-### Utilizzo
+## Utilizzo
 
 Inviare il comando `/start myPassword` al bot, usando la password configurata in precedenza. Questo garantisce un livello di privacy minimale.
 
