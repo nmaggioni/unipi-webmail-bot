@@ -49,6 +49,10 @@ In caso si stia utilizzando un orchestrator che supporta i secret, il meccanismo
   ```bash
   node index.js
   ```
++ Usando Docker
+  ```bash
+  docker run -it --env TELEGRAM_TOKEN=my:token --env TELEGRAM_PASSWORD=foobar --env WEBMAIL_USERNAME=my.username --env WEBMAIL_PASSWORD=hunter2 nmaggioni/unipi-webmail-bot
+  ```
 
 ### Utilizzo
 
