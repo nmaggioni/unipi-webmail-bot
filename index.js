@@ -2,9 +2,9 @@ const winston = require('winston');
 const Telegraf = require('telegraf');
 const commandParts = require('telegraf-command-parts');
 const CronJob = require('cron').CronJob;
-const secrets = require('./secrets').load();
-const {getUnreadMessages} = require('./scraper');
-const hashTracker = require('./hashTracker');
+const secrets = require('./lib/secrets').load();
+const {getUnreadMessages} = require('./lib/scraper');
+const hashTracker = require('./lib/hashTracker');
 
 let job;
 
