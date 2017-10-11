@@ -79,6 +79,11 @@ checkSecrets()
       }
     });
 
+    bot.command('ping', (ctx) => {
+      winston.info(ctx.chat.id, ctx.from.username, '/ping');
+      ctx.reply('pong!');
+    });
+
     bot.startPolling();
   })
   .catch((e) => {
