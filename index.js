@@ -49,7 +49,7 @@ async function setCronjob(bot, chatid) {
 
   // noinspection JSUnusedGlobalSymbols
   job = new CronJob({
-    cronTime: '0 0 * * * *',
+    cronTime: '0 */15 * * * *',
     onTick: await doCronjob,
   });
   job.start();
