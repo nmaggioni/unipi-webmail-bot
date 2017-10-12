@@ -47,11 +47,12 @@ async function setCronjob(bot, chatid) {
     winston.info('Done running cronjob for chat ID', chatid, '.');
   }
 
-  // noinspection JSUnusedGlobalSymbols
-  job = new CronJob({
-    cronTime: '0 */15 * * * *',
-    onTick: await doCronjob,
-  });
+  if (!job) {
+    job = new CronJob({
+      cronTime: '0 */15 * * * *',
+      onTick: await doCronjob,
+    });
+  }
   job.start();
   await doCronjob();
 }
@@ -99,10 +100,7 @@ checkSecrets()
 // Cleanups & Promises handling
 
 function cleanup(exit) {
-  if (job && job.running) {
-    job.stop();
-    job = null;
-  }
+  if (job && job.running) job.stop();
   if (exit) process.exit();
 }
 
