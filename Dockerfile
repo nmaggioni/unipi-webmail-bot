@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -yq gconf-service libasound2 libatk1.0-0 l
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
 
-COPY ./* /usr/src/
+COPY . /usr/src
 RUN yarn
 
 CMD ["node", "index.js"]

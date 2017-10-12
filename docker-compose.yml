@@ -1,0 +1,21 @@
+version: '2'
+services:
+  unipi-webmail-bot:
+    image: nmaggioni/unipi-webmail-bot:latest
+    environment:
+      TELEGRAM_TOKEN: my:token
+      TELEGRAM_PASSWORD: myPassword
+      WEBMAIL_USERNAME: my.username
+    stdin_open: true
+    tty: true
+    secrets:
+    - mode: 444
+      uid: '0'
+      gid: '0'
+      source: unipi-webmail-bot_webmail_password
+      target: webmail_password
+    labels:
+      io.rancher.container.pull_image: always
+secrets:
+  unipi-webmail-bot_webmail_password:
+    external: 'true'
