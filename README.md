@@ -64,6 +64,6 @@ In caso si stia utilizzando un orchestrator che supporta i secret, il meccanismo
 
 Inviare il comando `/start myPassword` al bot, usando la password configurata in precedenza. Questo garantisce un livello di privacy minimale.
 
-Il bot risponderà affermativamente o negativamente. In caso affermativo, controllerà una volta all'ora la presenza di nuove email ed invierà un messaggio alla chat da cui il comando `/start` è provenuto.
+Il bot risponderà affermativamente o negativamente. In caso affermativo, controllerà ogni 15 minuti la presenza di nuove email ed invierà un messaggio alla chat da cui il comando `/start` è provenuto.
 
 La stessa meccanica vale per il comando `/stop`, che interrompe il controllo di nuove mail fino al successivo avvio (`/start`) del bot: `/stop myPassword`.
