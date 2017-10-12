@@ -80,6 +80,11 @@ checkSecrets()
       }
     });
 
+    bot.command('status', (ctx) => {
+      winston.info(ctx.chat.id, ctx.from.username, '/status');
+      ctx.reply((job && job.running) ? '🔛' : '📴');
+    });
+
     bot.command('ping', (ctx) => {
       winston.info(ctx.chat.id, ctx.from.username, '/ping');
       ctx.reply('pong!');
@@ -94,7 +99,10 @@ checkSecrets()
 // Cleanups & Promises handling
 
 function cleanup(exit) {
-  if (job && job.running) job.stop();
+  if (job && job.running) {
+    job.stop();
+    job = null;
+  }
   if (exit) process.exit();
 }
 
