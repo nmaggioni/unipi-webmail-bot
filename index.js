@@ -30,7 +30,7 @@ function formatNewMessage(message) {
     `*Dimensione*: ${message.size}`
 }
 
-function setCronjob(bot, chatid) {
+async function setCronjob(bot, chatid) {
   async function doCronjob() {
     winston.info('Running cronjob for chat ID', chatid, '...');
     let unseen = (await getUnreadMessages(secrets));
@@ -50,9 +50,10 @@ function setCronjob(bot, chatid) {
   // noinspection JSUnusedGlobalSymbols
   job = new CronJob({
     cronTime: '0 0 * * * *',
-    onTick: doCronjob,
+    onTick: await doCronjob,
   });
   job.start();
+  await doCronjob();
 }
 
 checkSecrets()
