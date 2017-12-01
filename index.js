@@ -1,3 +1,4 @@
+const fs = require('fs');
 const winston = require('winston');
 const Telegraf = require('telegraf');
 const commandParts = require('telegraf-command-parts');
@@ -61,6 +62,31 @@ checkSecrets()
   .then(() => {
     const bot = new Telegraf(secrets.telegram_token);
 
+    if (process.env.WEBMAILBOT_LOCKFILE) {
+      try {
+        fs.accessSync(process.env.WEBMAILBOT_LOCKFILE, fs.constants.R_OK | fs.constants.W_OK);
+        let chat_id = fs.readFileSync(process.env.WEBMAILBOT_LOCKFILE, 'utf8');
+        if (chat_id) {
+          setCronjob(bot, chat_id);
+          winston.info("Loaded Chat ID", chat_id, "from WEBMAILBOT_LOCKFILE path.");
+        } else {
+          winston.info("Chat ID from WEBMAILBOT_LOCKFILE path is empty, assuming first cycle.");
+        }
+      } catch (e) {
+        if (e.code === 'ENOENT') {
+          try {
+            fs.closeSync(fs.openSync(process.env.WEBMAILBOT_LOCKFILE, 'w'));
+          } catch (f) {
+            winston.info("Unable to create empty file at WEBMAILBOT_LOCKFILE path!");
+            winston.error(e);
+          }
+        } else {
+          winston.info("Unable to load Chat ID from WEBMAILBOT_LOCKFILE path!");
+          winston.error(e);
+        }
+      }
+    }
+
     bot.use(commandParts());
 
     bot.command('start', (ctx) => {
@@ -69,6 +95,16 @@ checkSecrets()
       ctx.reply(isPasswordOk ? '👍✅ ⇒ 🔛' : '👎🚫');
       if (isPasswordOk) {
         setCronjob(bot, ctx.chat.id);
+        if (process.env.WEBMAILBOT_LOCKFILE) {
+          try {
+            fs.accessSync(process.env.WEBMAILBOT_LOCKFILE, fs.constants.R_OK | fs.constants.W_OK);
+            fs.writeFileSync(process.env.WEBMAILBOT_LOCKFILE, ctx.chat.id);
+            winston.info("Wrote Chat ID", ctx.chat.id, "to WEBMAILBOT_LOCKFILE path.");
+          } catch (e) {
+            winston.info("Unable to write Chat ID to WEBMAILBOT_LOCKFILE path!");
+            winston.error(e);
+          }
+        }
       }
     });
 

@@ -60,6 +60,10 @@ In caso si stia utilizzando un orchestrator che supporta i secret, il meccanismo
   docker run -it --env TELEGRAM_TOKEN=my:token --env TELEGRAM_PASSWORD=foobar --env WEBMAIL_USERNAME=my.username --env WEBMAIL_PASSWORD=hunter2 nmaggioni/unipi-webmail-bot
   ```
 
+### Variabili d'ambiente
+
+Specificando un path ad un file tramite la variabile d'ambiente `WEBMAILBOT_LOCKFILE`, questo verrà utilizzato per salvare l'ID della chat a cui inviare le notifiche e per riprendere automaticamente il controllo delle email in caso di riavvio del bot (o dell'intero container in caso si stia utilizzando Docker).
+
 ## Utilizzo
 
 Inviare il comando `/start myPassword` al bot, usando la password configurata in precedenza. Questo garantisce un livello di privacy minimale.
