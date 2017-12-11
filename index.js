@@ -37,6 +37,8 @@ async function setCronjob(bot, chatid) {
     let unseen = (await getUnreadMessages(secrets));
     if (unseen.length > 0) {
       for (let i = 0; i < unseen.length; i++) {
+        winston.info('Found new email! From: "', message.from, '"; Subject: "',
+            message.subject, '"; Size:', message.size, '.');
         let msg = formatNewMessage(unseen[i]);
         let msgHash = hashTracker.md5(msg);
         if (!hashTracker.isSeen(msgHash)) {
