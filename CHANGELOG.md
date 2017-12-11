@@ -1,3 +1,10 @@
+<a name="1.1.1"></a>
+## 1.1.1 (2017-12-11)
+
+* gpg: Signature made lun 11 dic 2017 20:20:53 CET ([cab46f3](https://github.com/nmaggioni/unipi-webmail-bot/commit/cab46f3))
+
+
+
 <a name="1.1.0"></a>
 # 1.1.0 (2017-12-01)
 
